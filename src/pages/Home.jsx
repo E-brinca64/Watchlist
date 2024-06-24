@@ -1,10 +1,31 @@
 import { useState, useEffect } from "react";
 import MovieCard from '../components/MovieCard.jsx';
+import Carrosel from "../components/Carrosel.jsx";
 
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const Home = () => {
+  
+  const [topRated, setTopRated] = useState([]);
+
+  const getTopRatedMovies = async (url) => {
+    const res = await fetch(url)
+    const data = await res.json();
+
+    setTopRated(data.results);
+  }
+  
+  useEffect(() =>{
+
+    const topRatedUrl = `${moviesURL}top_rated?${apiKey}`;
+    getTopRatedMovies(topRatedUrl);
+  }, [])
+  
+  
+
+
+
   const [nowPlaying, setNowPlaying] =useState([])
 
   const getNowPlayingMovies = async (url) => {
@@ -24,6 +45,11 @@ const Home = () => {
 
   return (
   <>
+      <div className="cavalo">
+        {nowPlaying.length > 0 && nowPlaying.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
+      </div>
+
+
       <div className="container">
         <h2 className="nowPlaying">Currently playing</h2>
         <div className="movies-container">
