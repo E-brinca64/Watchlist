@@ -5,7 +5,7 @@ import { IoPersonSharp } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-    <nav className="bg-[#000814] p-4 shadow-md"> {/* Adicionando a classe shadow-md para sombra */}
+    <nav className="bg-[#000814] p-4 shadow-2xl"> {/* Adicionando a classe shadow-md para sombra */}
       <div className="flex justify-between items-center">
         <h2 className="flex items-center gap-2">
           <Link to="/">

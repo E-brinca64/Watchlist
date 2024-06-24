@@ -1,3 +1,5 @@
+// src/pages/Home.jsx
+
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard.jsx"; 
 import Carrosel from "../components/Carrosel.jsx";
@@ -8,69 +10,43 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 const Home = () => {
   const [topRated, setTopRated] = useState([]);
-
-  const getTopRatedMovies = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    setTopRated(data.results);
-  };
-
-  useEffect(() => {
-    const topRatedUrl = `${moviesURL}top_rated?${apiKey}`;
-    getTopRatedMovies(topRatedUrl);
-  }, []);
-
   const [nowPlaying, setNowPlaying] = useState([]);
-
-  const getNowPlayingMovies = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    setNowPlaying(data.results);
-  };
-
-  useEffect(() => {
-    const nowPlayingUrl = `${moviesURL}now_playing?${apiKey}`;
-    getNowPlayingMovies(nowPlayingUrl);
-  }, []);
-
   const [upComing, setUpComing] = useState([]);
 
-  const getUpComingMovies = async (url) => {
+  const fetchMovies = async (url, setState) => {
     const res = await fetch(url);
     const data = await res.json();
-
-    setUpComing(data.results);
+    setState(data.results);
   };
 
   useEffect(() => {
-    const upComingURL = `${moviesURL}upcoming?${apiKey}`;
-    getUpComingMovies(upComingURL);
+    fetchMovies(`${moviesURL}top_rated?${apiKey}`, setTopRated);
+    fetchMovies(`${moviesURL}now_playing?${apiKey}`, setNowPlaying);
+    fetchMovies(`${moviesURL}upcoming?${apiKey}`, setUpComing);
   }, []);
 
   return (
     <>
-      <div className="cavalo">
-        {topRated.length > 0 &&
-          topRated.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
+      <div className="mb-8">
+        {topRated.length > 0 && <Carrosel movies={topRated} />}
       </div>
 
-      <div className="container">
-        <h2 className="nowPlaying">Currently playing</h2>
-        <div className="movies-container">
+      <div className="container mx-auto mb-8">
+        <h2 className="text-2xl font-bold mb-4">Currently Playing</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {nowPlaying.length > 0 &&
             nowPlaying.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>
       </div>
 
-      <div className="container">
-        <h2 className="nowPlaying">Coming soon</h2>
-        <div className="movies-container">
+      <div className="container mx-auto mb-8">
+        <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {upComing.length > 0 &&
             upComing.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>
       </div>
+      
       <Footer />
     </>
   );
