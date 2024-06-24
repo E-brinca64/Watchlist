@@ -28,7 +28,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/coming" element={<Coming />} />
           <Route path="/today" element={<Today />} />
-        </Routes>
+          </Routes>
+          <footer />
       </Router>
     </div>
   );

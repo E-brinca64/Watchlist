@@ -1,5 +1,3 @@
-// src/pages/Home.jsx
-
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard.jsx"; 
 import Carrosel from "../components/Carrosel.jsx";

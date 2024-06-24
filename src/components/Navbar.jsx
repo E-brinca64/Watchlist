@@ -1,9 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { IoPersonSharp } from "react-icons/io5";
 
 const Navbar = () => {
+const [search, setSearch] = useState("")
+const navigate = useNavigate();
+
+const handlSubmit = (e) => {
+  e.preventDefault()
+  
+  if(!search) return
+
+  navigate(`/search?q=${search}`)
+  setSearch("")
+}
+
   return (
     <nav className="bg-[#000814] p-4 shadow-2xl"> {/* Adicionando a classe shadow-md para sombra */}
       <div className="flex justify-between items-center">
@@ -23,11 +35,13 @@ const Navbar = () => {
             </h2>
           </div>
 
-          <form className="flex items-center gap-4">
+          <form className="flex items-center gap-4" onSubmit={handlSubmit}>
             <input 
               type="text" 
               placeholder="Buscar" 
               className="p-4 rounded-full border-none bg-[#ffc300] underline" 
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
             />
             <button 
               type="submit" 
