@@ -6,7 +6,7 @@ const imageUrl = import.meta.env.VITE_IMG;
 const MovieCard = ({ movie, showLink = true}) => {
     return(
         <div className="movie-card">
-            <img src={imageUrl + movie.poster_path} alt={movie.title} />
+            <img src={imageUrl + movie.backdrop_path} alt={movie.title} />
             <h2>{movie.title}</h2>
             <p>
                 <FaStar /> {movie.vote_average}
@@ -15,6 +15,6 @@ const MovieCard = ({ movie, showLink = true}) => {
         </div>
     )
 }
-// backdrop_path
-// <h3>{release_date}</h3>
+// poster_path
+// 
 export default MovieCard;
