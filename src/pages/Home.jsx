@@ -22,10 +22,6 @@ const Home = () => {
     getTopRatedMovies(topRatedUrl);
   }, [])
   
-  
-
-
-
   const [nowPlaying, setNowPlaying] =useState([])
 
   const getNowPlayingMovies = async (url) => {
@@ -43,10 +39,12 @@ const Home = () => {
       getNowPlayingMovies(nowPlayingUrl);
     }, [])
 
+  
+
   return (
   <>
       <div className="cavalo">
-        {nowPlaying.length > 0 && nowPlaying.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
+        {nowPlaying.length > 0 && topRated.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
       </div>
 
 
