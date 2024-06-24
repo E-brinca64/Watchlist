@@ -39,12 +39,26 @@ const Home = () => {
       getNowPlayingMovies(nowPlayingUrl);
     }, [])
 
+    const [upComing, setUpComing] =useState([])
+
+    const getUpComingMovies = async (url) => {
+
+      const res = await fetch(url)
+      const data = await res.json();
   
+      setUpComing(data.results);
+    }
+    useEffect(() =>{
+
+      const upComingURL = `${moviesURL}upcoming?${apiKey}`;
+
+      getUpComingMovies(upComingURL);
+    }, [])
 
   return (
   <>
       <div className="cavalo">
-        {nowPlaying.length > 0 && topRated.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
+        {topRated.length > 0 && topRated.map((movie) => <Carrosel key={movie.id} movie={movie} />)}
       </div>
 
 
@@ -55,9 +69,12 @@ const Home = () => {
         </div>
       </div>
 
-    <h2>Coming soon</h2>
-
-      Filmes
+    <div className="container">
+        <h2 className="nowPlaying">Coming soon</h2>
+        <div className="movies-container">
+          {upComing.length > 0 && upComing.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+        </div>
+      </div>
 </>
     
   );  
